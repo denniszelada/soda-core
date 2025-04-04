@@ -147,7 +147,7 @@ class Cloud(ABC):
             self.logs.error(f"Error while executing Soda Cloud {request_type}", exception=e)
 
     def _http_post(self, request_name: str = None, **kwargs) -> Response:
-        response = requests.post(**kwargs)
+        response = requests.post(**kwargs, timeout=60)
 
         if request_name:
             trace_id = response.headers.get("X-Soda-Trace-Id")

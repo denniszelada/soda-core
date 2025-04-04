@@ -38,7 +38,7 @@ class HTTPSampler(Sampler):
                 "scan_time": sample_context.scan._data_timestamp.isoformat(),
             }
 
-            response = requests.post(self.url, json=json.dumps(result_dict, sort_keys=True, default=str))
+            response = requests.post(self.url, json=json.dumps(result_dict, sort_keys=True, default=str), timeout=60)
             message = f"{self.message} {response.text}"
 
             if response.status_code != 200:
