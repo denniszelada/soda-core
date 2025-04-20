@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 import os
-import random
 import re
 import string
 from importlib import import_module
@@ -23,6 +22,7 @@ from soda.contracts.impl.contract_data_source import ContractDataSource
 from soda.contracts.impl.logs import Log, Logs
 from soda.contracts.impl.sql_dialect import SqlDialect
 from soda.contracts.impl.yaml_helper import YamlFile
+import secrets
 
 logger = logging.getLogger(__name__)
 
@@ -130,7 +130,7 @@ class ContractDataSourceTestHelper:
             python_version_short = f'P{python_version.replace(".", "")}' if python_version else ""
 
             def generate_random_alpha_num_str(length: int) -> str:
-                return "".join(random.choice(string.ascii_lowercase + string.digits) for _ in range(length))
+                return "".join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(length))
 
             if github_head_ref:
                 github_head_ref_short = (
