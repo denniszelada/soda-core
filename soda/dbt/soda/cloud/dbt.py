@@ -265,7 +265,7 @@ class DbtCloud:
 
         self.scan._logs.info(f"Downloading artifact: {artifact}, from run: {run_id}")
 
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=60)
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
 
@@ -279,7 +279,7 @@ class DbtCloud:
         headers["Content-Type"] = "application/json"
 
         query_params = {"job_definition_id": job_id, "order_by": "-finished_at"}
-        response = requests.get(url, headers=headers, params=query_params)
+        response = requests.get(url, headers=headers, params=query_params, timeout=60)
 
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
