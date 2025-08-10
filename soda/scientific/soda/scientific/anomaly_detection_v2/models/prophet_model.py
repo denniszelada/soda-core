@@ -4,7 +4,6 @@ import ast
 import itertools
 import logging
 import multiprocessing
-import random
 import sys
 from typing import Any, Dict, Tuple
 
@@ -38,6 +37,7 @@ from soda.scientific.anomaly_detection_v2.utils import (
     SuppressStdoutStderr,
     get_not_enough_measurements_freq_result,
 )
+import secrets
 
 with SuppressStdoutStderr():
     from prophet import Prophet
@@ -312,7 +312,7 @@ class ProphetDetector(BaseDetector):
             self.logs.debug("Anomaly Detection: No external_regressor/user feedback found")
         # Set seed to get reproducible results
         np.random.seed(0)
-        random.seed(0)
+        secrets.SystemRandom().seed(0)
         if self._prophet_detector_params["suppress_stan"]:
             with SuppressStdoutStderr():
                 model.fit(time_series_df.iloc[:-1])

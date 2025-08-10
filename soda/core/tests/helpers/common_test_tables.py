@@ -1,11 +1,11 @@
 import os
 from datetime import date, datetime, timedelta, timezone
 from decimal import Decimal
-from random import choice, randint, uniform
 
 from faker import Faker
 from helpers.test_table import TestTable
 from soda.execution.data_type import DataType
+import secrets
 
 utc = timezone.utc
 
@@ -22,12 +22,12 @@ def generate_customer_records(num_records):
 
         record = (
             fake.uuid4(),  # id
-            Decimal(str(round(uniform(1.0, 1000.0), 2))),  # cst_size
+            Decimal(str(round(secrets.SystemRandom().uniform(1.0, 1000.0), 2))),  # cst_size
             fake.word(),  # cst_size_txt
-            randint(1, 10000),  # distance
-            f"{randint(0, 100)}%",  # pct
-            choice(["A", "B", "C", "D"]),  # cat
-            choice(["PL", "BE", "NL", "US"]),  # country
+            secrets.SystemRandom().randint(1, 10000),  # distance
+            f"{secrets.SystemRandom().randint(0, 100)}%",  # pct
+            secrets.choice(["A", "B", "C", "D"]),  # cat
+            secrets.choice(["PL", "BE", "NL", "US"]),  # country
             fake.zipcode(),  # zip
             fake.email(),  # email
             fake.date_this_century(),  # date_updated
